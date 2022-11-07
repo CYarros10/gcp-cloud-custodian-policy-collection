@@ -1,0 +1,13 @@
+policies:
+  - name: bq-table-missing-labels
+    comment: |
+      Check label is present
+    resource: gcp.bq-table
+    filters:
+      - or:
+        - type: value
+          key: "labels.costcenter"
+          value: absent
+        - type: value
+          key: "labels.application"
+          value: absent

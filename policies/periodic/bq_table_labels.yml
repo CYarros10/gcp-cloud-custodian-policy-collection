@@ -1,0 +1,25 @@
+policies:
+  - name: bq-table-missing-labels
+    comment: |
+      Check label is present
+    resource: gcp.bq-table
+    mode:
+      type: gcp-periodic
+      schedule: "every 24 hours"
+      target-type: pubsub
+    filters:
+      - or:
+        - type: value
+          key: "labels.costcenter"
+          value: absent
+        - type: value
+          key: "labels.application"
+          value: absent
+    actions:
+     - type: notify
+       to:
+         - email@address
+       format: txt
+       transport:
+         type: pubsub
+         topic: projects/my-gcp-project/topics/my-topic
