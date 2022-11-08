@@ -6,6 +6,9 @@
     service-account: SERVICE_ACCOUNT_NAME@PROJECT.iam.gserviceaccount.com
     type: gcp-scc
     org: ORG_ID
+    labels:
+      application: cloud-custodian
+      custodian-type: scc
   filters:
     - type: value
       key: severity

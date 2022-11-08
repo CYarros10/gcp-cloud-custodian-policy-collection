@@ -4,9 +4,14 @@ policies:
       Check label is present
     resource: gcp.bq-dataset
     mode:
-      type: gcp-periodic
-      schedule: "every 24 hours"
-      target-type: pubsub
+      type: gcp-audit
+      methods:
+        - "google.cloud.bigquery.v2.DatasetService.InsertDataset"
+        - "google.cloud.bigquery.v2.DatasetService.UpdateDataset"
+        - "google.cloud.bigquery.v2.DatasetService.PatchDataset"
+      labels:
+        application: cloud-custodian
+        custodian-type: audit
     filters:
       - or:
         - type: value

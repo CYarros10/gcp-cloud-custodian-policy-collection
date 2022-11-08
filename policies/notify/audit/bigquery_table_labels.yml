@@ -1,12 +1,17 @@
 policies:
-  - name: bq-job-missing-labels
+  - name: bq-table-missing-labels
     comment: |
       Check label is present
-    resource: gcp.bq-job
+    resource: gcp.bq-table
     mode:
       type: gcp-audit
       methods:
-        - "google.cloud.bigquery.v2.JobService.InsertJob"
+        - "google.cloud.bigquery.v2.JobService.InsertTable"
+        - "google.cloud.bigquery.v2.JobService.UpdateTable"
+        - "google.cloud.bigquery.v2.JobService.PatchTable"
+      labels:
+        application: cloud-custodian
+        custodian-type: audit
     filters:
       - or:
         - type: value

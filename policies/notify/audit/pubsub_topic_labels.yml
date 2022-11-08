@@ -1,12 +1,16 @@
 policies:
-  - name: bq-job-missing-labels
+  - name: pubsub-topic-missing-labels
     comment: |
       Check label is present
-    resource: gcp.bq-job
+    resource: gcp.pubsub-subscription
     mode:
-      type: gcp-periodic
-      schedule: "every 24 hours"
-      target-type: pubsub
+      type: gcp-audit
+      methods:
+        - "google.pubsub.v1.Publisher.CreateTopic"
+        - "google.pubsub.v1.Publisher.UpdateTopic"
+      labels:
+        application: cloud-custodian
+        custodian-type: audit
     filters:
       - or:
         - type: value
