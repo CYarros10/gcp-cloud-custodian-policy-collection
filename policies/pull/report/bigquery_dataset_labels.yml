@@ -1,0 +1,14 @@
+policies:
+  - name: pull-report-bq-dataset-missing-labels
+    comment: |
+      Check label is present
+    resource: gcp.bq-dataset
+    filters:
+      - or:
+        - type: value
+          key: "labels.costcenter"
+          value: absent
+        - type: value
+          key: "labels.application"
+          value: absent
+
