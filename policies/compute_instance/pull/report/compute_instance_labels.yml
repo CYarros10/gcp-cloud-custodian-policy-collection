@@ -1,8 +1,8 @@
 policies:
-  - name: pull-report-bq-dataset-missing-labels
+  - name: audit-notify-compute-instance-missing-labels
     comment: |
       Check label is present
-    resource: gcp.bq-dataset
+    resource: gcp.instance
     filters:
       - or:
         - type: value
@@ -11,4 +11,3 @@ policies:
         - type: value
           key: "labels.application"
           value: absent
-
